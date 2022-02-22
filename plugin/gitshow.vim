@@ -19,7 +19,7 @@ local switch_dir = string.format("cd $(dirname %s)", filename)
 
 -- TODO: Use a specific format for git blame
 -- using root doesn't differetiate a the boundary commit
-local blame_cmd = string.format("git blame --root -L %s,+1 -- %s", linenum, filename)
+local blame_cmd = string.format("git --no-pager blame --root -L %s,+1 -- %s", linenum, filename)
 
 local grep_and_show = ' | grep -Po \"^([\\w]+)\" | xargs git show'
 
