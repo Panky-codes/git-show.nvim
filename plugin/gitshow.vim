@@ -61,5 +61,5 @@ vim.api.nvim_win_set_option(win, "number", true)
 EOF
 endfunction
 
-map <M-C-G> :call WhoWroteWhat()<CR>
+nmap <M-C-G> :call WhoWroteWhat()<CR>
 
