@@ -25,10 +25,12 @@ local grep_and_show = ' | grep -Po \"^([\\w]+)\" | xargs git show'
 
 local final_cmd = switch_dir .. " && " .. blame_cmd .. grep_and_show
 
-local width = 90
-local height = 40
 
 local current_ui = vim.api.nvim_list_uis()
+-- TODO: change these into options
+local width = current_ui[1]["width"] / 2
+local height = current_ui[1]["height"] / 2
+
 local col = current_ui[1]["width"] / 2 - (width / 2)
 local row = current_ui[1]["height"] / 2 - (height / 2)
 
