@@ -17,15 +17,13 @@ end
 
 local switch_dir = string.format("cd $(dirname %s)", filename)
 
-local git_root = string.format("git rev-parse --show-toplevel")
-
 -- TODO: Use a specific format for git blame
 -- using root doesn't differetiate a the boundary commit
 local blame_cmd = string.format("git blame --root -L %s,+1 -- %s", linenum, filename)
 
 local grep_and_show = ' | grep -Po \"^([\\w]+)\" | xargs git show'
 
-local final_cmd = switch_dir .. " && " .. git_root .. " && " .. blame_cmd .. grep_and_show
+local final_cmd = switch_dir .. " && " .. blame_cmd .. grep_and_show
 
 local width = 90
 local height = 40
