@@ -41,9 +41,14 @@ vim.api.nvim_buf_set_option(buf, 'filetype', 'diff')
 local id = vim.fn.jobstart(final_cmd, {
     stdout_buffered = true,
     on_stdout = function (_, data, _)
-    for i, line in ipairs(data) do
-        vim.api.nvim_buf_set_lines(buf, i -1 , i  -1, false, {line})
+    local i = 0
+    for _, line in ipairs(data) do
+        vim.api.nvim_buf_set_lines(buf, i , i, false, {line})
+	i = i + 1
     end
+    -- Make sure the buffer is not modifiable and move the cursor to the top
+        vim.api.nvim_buf_set_option(buf, 'modifiable', false)
+	vim.api.nvim_win_set_cursor(win, {1, 0})
 end})
 
 local win = vim.api.nvim_open_win(buf, true, {relative='editor', width=width, 
@@ -56,6 +61,5 @@ vim.api.nvim_win_set_option(win, "number", true)
 EOF
 endfunction
 
-" FIXME: The floating window goes to EOF. How to make it point to the top?
 map <M-C-G> :call WhoWroteWhat()<CR>
 
